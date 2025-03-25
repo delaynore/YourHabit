@@ -15,6 +15,19 @@ services:
       # Aspire Dashboard
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://yourhabit.aspire-dashboard:18889
       - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
+    depends_on:
+      - yourhabit.postgres
+
+  yourhabit.postgres:
+    image: postgres:17.2
+    environment:
+      POSTGRES_DB: yourhabit
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./.containers/postgres_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
 
   # yourhabit.seq:
   #   image: datalust/seq:2024.3 # or latest
