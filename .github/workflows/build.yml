@@ -1,0 +1,38 @@
+name: Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+
+env:
+  DOTNET_VERSION: "9.x"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: .
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Restore
+        run: dotnet restore YourHabit.sln
+
+      - name: Build
+        run: dotnet build YourHabit.sln --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test YourHabit.sln --configuration Release --no-restore --no-build
+
+      - name: Publish
+        run: dotnet publish YourHabit.sln --configuration Release --no-restore --no-build
