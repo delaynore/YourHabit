@@ -57,4 +57,32 @@ internal static class HabitMappings
             habit.UpdatedAtUtc,
             habit.LastCompletedAtUtc);
     }
+
+    public static void UpdateFromRequest(this Habit habit, UpdateHabitRequest request)
+    {
+        habit.Name = request.Name;
+        habit.Descriptions = request.Descriptions;
+        habit.Type = request.Type;
+        habit.EndDate = request.EndDate;
+
+        habit.Frequency = new Frequency
+        {
+            Type = request.Frequency.Type,
+            TimesPerPeriod = request.Frequency.TimesPerPeriod
+        };
+
+        habit.Target = new Target
+        {
+            Value = request.Target.Value,
+            Unit = request.Target.Unit
+        };
+
+        if (request.Milestone is { })
+        {
+            habit.Milestone ??= new Milestone();
+            habit.Milestone.Target = request.Milestone.Target;
+        }
+
+        habit.UpdatedAtUtc = DateTime.UtcNow;
+    }
 }
