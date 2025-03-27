@@ -1,6 +1,6 @@
 ﻿using YourHabit.Api.Entities;
 
-namespace YourHabit.Api.Dtos;
+namespace YourHabit.Api.Dtos.Habits;
 
 public sealed record UpdateHabitRequest
 {
