@@ -51,4 +51,21 @@ public sealed class HabitsController(ApplicationDbContext dbContext) : Controlle
 
         return Results.CreatedAtRoute(nameof(GetHabit), new { response.Id }, response);
     }
+
+    [HttpPut("{id}")]
+    public async Task<Results<NotFound, NoContent>> UpdateHabit([FromRoute] string id, [FromBody] UpdateHabitRequest request)
+    {
+        var habit = await _dbContext.Habits.FirstOrDefaultAsync(x => x.Id == id);
+
+        if (habit is null)
+        {
+            return TypedResults.NotFound();
+        }
+
+        habit.UpdateFromRequest(request);
+
+        await _dbContext.SaveChangesAsync();
+
+        return TypedResults.NoContent();
+    }
 }
