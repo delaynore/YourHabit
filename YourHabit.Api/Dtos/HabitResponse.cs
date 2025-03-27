@@ -5,7 +5,7 @@ namespace YourHabit.Api.Dtos;
 public sealed record HabitResponse(
     string Id,
     string Name,
-    string? Descriptions,
+    string? Description,
     HabitType Type,
     FrequencyDto Frequency,
     TargetDto Target,

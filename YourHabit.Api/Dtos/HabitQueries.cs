@@ -10,7 +10,7 @@ internal static class HabitQueries
         return x => new HabitResponse(
             x.Id,
             x.Name,
-            x.Descriptions,
+            x.Description,
             x.Type,
             new FrequencyDto { Type = x.Frequency.Type, TimesPerPeriod = x.Frequency.TimesPerPeriod },
             new TargetDto{ Value = x.Target.Value, Unit = x.Target.Unit },

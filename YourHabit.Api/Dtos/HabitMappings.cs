@@ -10,7 +10,7 @@ internal static class HabitMappings
         {
             Id = $"h_{Guid.CreateVersion7()}",
             Name = request.Name,
-            Descriptions = request.Descriptions,
+            Description = request.Description,
             Type = request.Type,
             Frequency = new Frequency
             {
@@ -43,7 +43,7 @@ internal static class HabitMappings
         return new HabitResponse(
             habit.Id,
             habit.Name,
-            habit.Descriptions,
+            habit.Description,
             habit.Type,
             new FrequencyDto{ Type = habit.Frequency.Type, TimesPerPeriod = habit.Frequency.TimesPerPeriod },
             new TargetDto{ Value = habit.Target.Value, Unit = habit.Target.Unit },
@@ -61,7 +61,7 @@ internal static class HabitMappings
     public static void UpdateFromRequest(this Habit habit, UpdateHabitRequest request)
     {
         habit.Name = request.Name;
-        habit.Descriptions = request.Descriptions;
+        habit.Description = request.Description;
         habit.Type = request.Type;
         habit.EndDate = request.EndDate;
 

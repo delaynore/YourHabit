@@ -6,7 +6,7 @@ public sealed class Habit
 
     public string Name { get; set; } = string.Empty;
 
-    public string? Descriptions { get; set; }
+    public string? Description { get; set; }
 
     public HabitType Type { get; set; }
 
