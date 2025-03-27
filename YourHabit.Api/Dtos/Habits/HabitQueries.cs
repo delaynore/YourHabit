@@ -13,12 +13,12 @@ internal static class HabitQueries
             x.Description,
             x.Type,
             new FrequencyDto { Type = x.Frequency.Type, TimesPerPeriod = x.Frequency.TimesPerPeriod },
-            new TargetDto{ Value = x.Target.Value, Unit = x.Target.Unit },
+            new TargetDto { Value = x.Target.Value, Unit = x.Target.Unit },
             x.Status,
             x.IsArchived,
             x.EndDate,
-            x.Milestone != null 
-                ? new MilestoneDto{ Target = x.Milestone.Target, Current = x.Milestone.Current } 
+            x.Milestone != null
+                ? new MilestoneDto { Target = x.Milestone.Target, Current = x.Milestone.Current }
                 : default,
             x.CreatedAtUtc,
             x.UpdatedAtUtc,

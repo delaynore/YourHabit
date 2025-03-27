@@ -59,7 +59,7 @@ public sealed class TagsController(ApplicationDbContext dbContext) : ControllerB
     [HttpPut("{id}")]
     public async Task<Results<NoContent, NotFound>> CreateTag([FromRoute] string id, [FromBody] UpdateTagRequest request)
     {
-        var tag = await _dbContext.Tags.FirstOrDefaultAsync(x=>x.Id == id);
+        var tag = await _dbContext.Tags.FirstOrDefaultAsync(x => x.Id == id);
 
         if (tag is null)
         {

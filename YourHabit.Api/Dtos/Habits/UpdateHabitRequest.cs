@@ -17,4 +17,4 @@ public sealed record UpdateHabitRequest
     public DateOnly? EndDate { get; init; }
 
     public UpdateMilestoneDto? Milestone { get; init; }
-} 
+}

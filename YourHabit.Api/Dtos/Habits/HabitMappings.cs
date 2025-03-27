@@ -45,13 +45,13 @@ internal static class HabitMappings
             habit.Name,
             habit.Description,
             habit.Type,
-            new FrequencyDto{ Type = habit.Frequency.Type, TimesPerPeriod = habit.Frequency.TimesPerPeriod },
-            new TargetDto{ Value = habit.Target.Value, Unit = habit.Target.Unit },
+            new FrequencyDto { Type = habit.Frequency.Type, TimesPerPeriod = habit.Frequency.TimesPerPeriod },
+            new TargetDto { Value = habit.Target.Value, Unit = habit.Target.Unit },
             habit.Status,
             habit.IsArchived,
             habit.EndDate,
             habit.Milestone != null
-                ? new MilestoneDto{ Target = habit.Milestone.Target, Current = habit.Milestone.Current }
+                ? new MilestoneDto { Target = habit.Milestone.Target, Current = habit.Milestone.Current }
                 : default,
             habit.CreatedAtUtc,
             habit.UpdatedAtUtc,

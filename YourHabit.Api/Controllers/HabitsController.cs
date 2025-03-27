@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using YourHabit.Api.Database;
 using YourHabit.Api.Dtos.Habits;
-using YourHabit.Api.Entities;
 
 namespace YourHabit.Api.Controllers;
 
