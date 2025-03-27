@@ -1,5 +1,5 @@
 ﻿namespace YourHabit.Api.Dtos;
 
-public sealed record TargetResponse(
+public sealed record TargetDto(
     int Value,
     string Unit);

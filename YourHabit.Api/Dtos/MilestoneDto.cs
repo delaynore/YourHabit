@@ -1,5 +1,5 @@
 ﻿namespace YourHabit.Api.Dtos;
 
-public sealed record MilestoneResponse(
+public sealed record MilestoneDto(
     int Target,
     int Current);

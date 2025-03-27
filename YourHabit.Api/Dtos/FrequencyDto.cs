@@ -2,6 +2,6 @@
 
 namespace YourHabit.Api.Dtos;
 
-public sealed record FrequencyResponse(
+public sealed record FrequencyDto(
     FrequencyType Type,
     int TimesPerPeriod);
