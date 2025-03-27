@@ -68,4 +68,21 @@ public sealed class HabitsController(ApplicationDbContext dbContext) : Controlle
 
         return TypedResults.NoContent();
     }
+
+    [HttpDelete("{id}")]
+    public async Task<Results<NotFound, NoContent>> DeleteHabit([FromRoute] string id)
+    {
+        var habit = await _dbContext.Habits.FirstOrDefaultAsync(x => x.Id == id);
+
+        if (habit is null)
+        {
+            return TypedResults.NotFound();
+        }
+
+        _dbContext.Remove(habit);
+        await _dbContext.SaveChangesAsync();
+
+        return TypedResults.NoContent();
+    }
+
 }
