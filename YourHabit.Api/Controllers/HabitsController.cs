@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using YourHabit.Api.Database;
 using YourHabit.Api.Dtos;
+using YourHabit.Api.Entities;
 
 namespace YourHabit.Api.Controllers;
 
@@ -16,44 +17,18 @@ public sealed class HabitsController(ApplicationDbContext dbContext) : Controlle
     public async Task<Ok<HabitsCollectionResponse>> GetHabits()
     {
         var habits = await _dbContext.Habits
-            .Select(x => new HabitResponse(
-                x.Id,
-                x.Name,
-                x.Descriptions,
-                x.Type,
-                new FrequencyResponse(x.Frequency.Type, x.Frequency.TimesPerPeriod),
-                new TargetResponse(x.Target.Value, x.Target.Unit),
-                x.Status,
-                x.IsArchived,
-                x.EndDate,
-                x.Milestone != null ? new MilestoneResponse(x.Milestone.Target, x.Milestone.Current) : default,
-                x.CreatedAtUtc,
-                x.UpdatedAtUtc,
-                x.LastCompletedAtUtc))
+            .Select(HabitQueries.ProjectToResponse())
             .ToListAsync();
 
         return TypedResults.Ok(new HabitsCollectionResponse(habits));
     }
 
-    [HttpGet("{id}")]
-    public async Task<Results<Ok<HabitResponse>, NotFound>> GetHabit(string id)
+    [HttpGet("{id}", Name = nameof(GetHabit))]
+    public async Task<Results<Ok<HabitResponse>, NotFound>> GetHabit([FromRoute] string id)
     {
         var habit = await _dbContext.Habits
             .Where(x => x.Id == id)
-            .Select(x => new HabitResponse(
-                x.Id,
-                x.Name,
-                x.Descriptions,
-                x.Type,
-                new FrequencyResponse(x.Frequency.Type, x.Frequency.TimesPerPeriod),
-                new TargetResponse(x.Target.Value, x.Target.Unit),
-                x.Status,
-                x.IsArchived,
-                x.EndDate,
-                x.Milestone != null ? new MilestoneResponse(x.Milestone.Target, x.Milestone.Current) : default,
-                x.CreatedAtUtc,
-                x.UpdatedAtUtc,
-                x.LastCompletedAtUtc))
+            .Select(HabitQueries.ProjectToResponse())
             .FirstOrDefaultAsync();
 
         if (habit is null)
@@ -62,5 +37,18 @@ public sealed class HabitsController(ApplicationDbContext dbContext) : Controlle
         }
 
         return TypedResults.Ok(habit);
+    }
+
+    [HttpPost]
+    public async Task<IResult> CreateHabit([FromBody] CreateHabitRequest request)
+    {
+        var habit = request.ToEntity();
+
+        _dbContext.Add(habit);
+        await _dbContext.SaveChangesAsync();
+
+        var response = habit.ToResponse();
+
+        return Results.CreatedAtRoute(nameof(GetHabit), new { response.Id }, response);
     }
 }
