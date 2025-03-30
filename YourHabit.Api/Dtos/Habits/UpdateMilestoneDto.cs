@@ -1,4 +1,4 @@
-﻿namespace YourHabit.Api.Dtos;
+﻿namespace YourHabit.Api.Dtos.Habits;
 
 public sealed record UpdateMilestoneDto
 {

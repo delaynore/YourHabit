@@ -6,7 +6,7 @@ public sealed class Habit
 
     public string Name { get; set; } = string.Empty;
 
-    public string? Descriptions { get; set; }
+    public string? Description { get; set; }
 
     public HabitType Type { get; set; }
 
@@ -27,4 +27,8 @@ public sealed class Habit
     public DateTime? UpdatedAtUtc { get; set; }
 
     public DateTime? LastCompletedAtUtc { get; set; }
+
+    public List<HabitTag> HabitTags { get; set; }
+
+    public List<Tag> Tags { get; set; }
 }

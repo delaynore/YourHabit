@@ -2,8 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using YourHabit.Api.Database;
-using YourHabit.Api.Dtos;
-using YourHabit.Api.Entities;
+using YourHabit.Api.Dtos.Habits;
 
 namespace YourHabit.Api.Controllers;
 
@@ -24,11 +23,11 @@ public sealed class HabitsController(ApplicationDbContext dbContext) : Controlle
     }
 
     [HttpGet("{id}", Name = nameof(GetHabit))]
-    public async Task<Results<Ok<HabitResponse>, NotFound>> GetHabit([FromRoute] string id)
+    public async Task<Results<Ok<HabitWithTagsResponse>, NotFound>> GetHabit([FromRoute] string id)
     {
         var habit = await _dbContext.Habits
             .Where(x => x.Id == id)
-            .Select(HabitQueries.ProjectToResponse())
+            .Select(HabitQueries.ProjectToHabitWithTagsResponse())
             .FirstOrDefaultAsync();
 
         if (habit is null)
@@ -84,5 +83,6 @@ public sealed class HabitsController(ApplicationDbContext dbContext) : Controlle
 
         return TypedResults.NoContent();
     }
+
 
 }

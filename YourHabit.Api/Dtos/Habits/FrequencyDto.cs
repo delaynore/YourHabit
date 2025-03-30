@@ -1,8 +1,8 @@
 ﻿using YourHabit.Api.Entities;
 
-namespace YourHabit.Api.Dtos;
+namespace YourHabit.Api.Dtos.Habits;
 
-public sealed record FrequencyDto 
+public sealed record FrequencyDto
 {
     public required FrequencyType Type { get; init; }
 
