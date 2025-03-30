@@ -22,5 +22,9 @@ public sealed class HabitConfiguration : IEntityTypeConfiguration<Habit>
             targetBuilder.Property(t => t.Unit).HasMaxLength(100);
         });
         builder.OwnsOne(x => x.Milestone);
+
+        builder.HasMany(x => x.Tags)
+            .WithMany()
+            .UsingEntity<HabitTag>();
     }
 }
